@@ -1,0 +1,465 @@
+{% extends 'Nav.html' %}
+
+{% load static %}
+{% block title %}
+My shop | Cart
+
+{% endblock %}
+{% block css%}
+
+.cart_con{
+border-radius: 4px;
+width: 800px;
+padding: 20px;
+height: max-content;
+display:flex;
+column-gap:30px;
+}
+#fill_cart{
+display:flex;
+flex-direction:column;
+
+row-gap:10px;
+}
+
+
+#emty_cart > div > div:nth-child(1){
+width: 50%;
+height: 300px;
+background-image: url("{% static 'img/empty.jpg' %}");
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+}
+#emty_cart > div > div:nth-child(2){
+display: flex;
+
+align-items: center;
+justify-content: center;
+}
+#emty_cart > div > div:nth-child(2) >a{
+font-size: 18px;
+border-radius: 4px;
+text-decoration: none;
+color: wheat;
+padding: 7px;
+background-color: rgb(16, 43, 95);
+}
+
+#emty_cart > div {
+
+display: flex;
+flex-direction: row;
+}
+
+
+body{
+background-color: rgb(233, 233, 233);
+}
+*{
+font-family: "Questrial", "Roboto";;
+}
+.cart_item {
+box-shadow: 0 0 7px 0px lightgrey;
+border-radius:5px;
+padding:10px;
+display: flex;
+min-height: 270px;
+max-height: 500px;
+width: 800px;
+background-color: rgb(255, 255, 255);
+
+}
+
+.img_con {
+width: 40%;
+height: 90%;
+
+background-position: center;
+background-size: contain;
+background-repeat: no-repeat;
+}
+
+.cart_deatil_con {
+width: 60%;
+height: inherit;
+}
+
+
+
+#cart_bill_con {
+border-radius: 5px;
+
+width: max-content;
+background-color: white;
+padding: 20px;
+height: max-content;
+box-shadow: 0px 0px 5px grey;
+}
+
+
+#cart_bill_con > div{
+display: flex;
+width: max-content;
+}
+
+#cart_bill_con > div >p {
+font-weight: bold;
+margin: 5px;
+width: 250px;
+}
+
+#cart_bill_con > div >b{
+min-width: 50px;
+max-width: 200px;
+}
+
+
+#cart_bill_con >p{
+width:inherit;
+}
+.cart_update_btn{
+display: flex;
+width: max-content;
+align-items: center;
+}
+.cart_update_btn > button{
+
+
+font-size: 25px;
+width: 40px;
+cursor: pointer;
+background-color: #ffffff;
+
+}
+.Cart_bill{
+
+display:flex;
+flex-direction:column;
+row-gap:10px;
+}
+
+
+.cart_deatil_con >* {
+margin: 0px;
+}
+.cart_update_btn > button:hover{
+background-color: #bdf5de;
+}
+.cart_update_btn > span{
+font-size: 20px;
+padding: 0px 4px;
+background-color: #00203c;
+color:white;
+min-width: 40px;
+text-align: center;
+border: 1px solid;
+border-left: none;
+border-right: none;
+}
+.remove_item{
+padding: 4px 20px;
+font-size: 18px;
+border: none;
+color: white;
+border-radius: 2px;
+background-color: #22c2ff;
+}
+.remove_item:hover{
+background-color: #2484a9;
+}
+.showModel{
+position: fixed;
+background-color: rgb(56 43 30 / 68%);
+display: block;
+opacity: 1;
+}
+{% endblock %}
+
+{% block body %}
+
+
+<!-- 
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document" style="margin-top: 100px;">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        If You Remove The Item also Remove all Quantity of This Item ,
+        are You Sure to Remove Item ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="RemoveConfirm" onclick="RemoveConfirm()">YES</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="toggleModel()">NO</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div>
+  <div class="cart_info"></div>
+  <div class="cart_con">
+    <!-- <div id="emty_cart">
+
+      <h2>Hi Your cart is empty</h2>
+
+      <div>
+        <div>
+          <img src="static/img/empty.jpg" alt="" srcset=""> 
+        </div>
+        <div> <a href="/login/">Sign in now </a>
+
+
+        </div>
+      </div>
+
+    </div> -->
+
+    <div id="fill_cart">
+
+    </div>
+
+    <div class="Cart_bill">
+      <div id="cart_bill_con">
+
+      </div>
+
+      <button type="button" class="btn btn-primary" onclick="window.open('/checkout','_self')">Place Order , Now</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  console.log(category)
+   category.forEach((cat)=>setcat());
+
+
+
+  // remove node
+
+  function removeNode(parent, child) {
+    var als = document.querySelectorAll(parent + ' >' + child);
+    als.forEach((lis) => {
+      document.querySelector(parent).removeChild(lis);
+    });
+  }
+
+
+  //handle cart
+
+  class HandleCart {
+    constructor() {
+      let Products = [];
+      let cart = {};
+
+
+
+
+
+      this.fetchCart = function () {
+        if (localStorage.getItem("cart") == null) {
+          cart = {};
+
+        }
+        else {
+          cart = JSON.parse(localStorage.getItem("cart"));
+
+
+        }
+
+      }
+
+
+
+      this.getItemDetails = function () {
+        const itemsList = [];
+        for (let it in cart) {
+          itemsList.push(it);
+
+        }
+     
+        if (itemsList.length > 0) {
+          console.log(itemsList);
+          fetch('/cartdetails', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "prods": itemsList })
+          }).then(res => res.json())
+            .then(res => {
+                     console.log(res);
+              if (res.status == "200") {
+               
+                Products = res.result;
+                this.drawCartProduct();
+              }
+            })
+        }
+        else {
+          this.drawCartProduct();
+        }
+      }
+
+
+      this.drawCartProduct = function () {
+
+        const Items = Products;
+       
+        if (Items.length > 0) {
+               removeNode(".cart_info"," *"); 
+                 let allitem = 0;
+               for (let x in cart) {
+                  allitem += cart[x];
+                      }
+
+
+
+               document.querySelector(".cart_info").innerHTML +="<h2>Your Cart Having "+ allitem+" Items</h2>";
+               document.querySelector(".cart_info").innerHTML +="<a href='' onclick='localStorage.clear();window.location.reload()'>Clear Cart</a>";
+          let tprice = 0;
+          for (let It in Items) {
+            if (cart['PI' + String(Items[It].id)] > 0) {
+              tprice += parseFloat(Items[It].product_price)*cart["PI" + String(Items[It].id)];
+
+
+              let pr = '<div class="cart_item" id="PI' + Items[It].id + '"> <div class="img_con" style="background-image:url(' + Items[It].product_image + ')"></div><div class="cart_deatil_con">  <h3>' + Items[It].product_Name + '</h3>  <h5>'+Items[It].product_details+'</h5><P> &#8377; <del style="color: #88898b;">350</del> &nbsp; <span>29% <strong>off</strong></span></P> <h3 style="margin: 0px;">&#8377;' + IntToRupee(Items[It].product_price) + '</h3> <br> <div class="cart_update_btn" title="Product Quantity"> <button  onclick="v.updateCartItem(' + (String(Items[It].id)) + ',' + '-1)">-</button><span style="font-size: 20px;">' + cart["PI" + String(Items[It].id)] + '</span><button    onclick="v.updateCartItem(' + (String(Items[It].id)) + ',' + '+1)">+</button></div><br><button class="remove_item btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal" onclick="RemoveItem(' + Items[It].id + ')" data-content="' + Items[It].id + '">Remove Item</button></div></div > ';
+
+
+              let carquan = '<div><p>' + (String(Items[It].product_Name).length > 30 ? String(Items[It].product_Name).slice(0, 30) + "..." : Items[It].product_Name) + '</p><b style="float:right">' + cart["PI" + String(Items[It].id)] + ' &times; ' + Items[It].product_price + ' = ' + ' &#8377; ' + cart["PI" + String(Items[It].id)] * Items[It].product_price + '</b></div>';
+
+
+              document.getElementById("fill_cart").innerHTML += pr;
+              document.getElementById("cart_bill_con").innerHTML += carquan;
+
+
+            }
+
+          }
+
+          document.getElementById("cart_bill_con").innerHTML += '<div><p >Total Price (INR)</p><b style="float:right">&#8377; '+IntToRupee(String(tprice))+' only</b></div>';
+
+        }
+        else {
+          console.log("empty");
+          removeNode("#fill_cart", ".cart_item");
+          document.getElementById("fill_cart").innerHTML += '<p>hey dear, Your Cart Is Empty <a href="/">Shop Now</a></p>';
+
+        }
+      }
+
+      this.updateCartItem = function (idk, value) {
+        if (value == 0) {
+          delete cart["PI" + idk];
+          localStorage.setItem("cart", JSON.stringify(cart));
+          this.fetchCart();
+          updateCart(cart);
+          removeNode("#fill_cart", ".cart_item");
+          removeNode("#cart_bill_con", "*");
+
+          this.drawCartProduct();
+        } else {
+          if (cart["PI" + idk] > 1 || value == 1) {
+
+            cart["PI" + idk] = cart["PI" + idk] + value;
+            localStorage.setItem("cart", JSON.stringify(cart));
+            this.fetchCart();
+            updateCart(cart);
+            removeNode("#fill_cart", ".cart_item");
+            removeNode("#cart_bill_con", "*");
+
+            this.drawCartProduct();
+          }
+          else {
+            alert("Hey Dear, You Need To Remove This Item");
+          }
+        }
+      }
+      this.test = function () {
+        console.log(cart, Products);
+      }
+
+
+      this.fetchCart();
+      this.getItemDetails();
+      //this.drawCartProduct();
+
+      // this.test();
+
+      //construction end
+    }
+  }
+
+
+
+
+  const v = new HandleCart();
+
+  function RemoveItem(ifg) {
+    toggleModel();
+    document.getElementById("RemoveConfirm").setAttribute("data-content", ifg);
+  }
+
+
+  function RemoveConfirm() {
+
+    var fg = document.getElementById("RemoveConfirm").getAttribute("data-content");
+
+    v.updateCartItem(fg, 0);
+    toggleModel();
+
+  }
+
+  function toggleModel() {
+    document.getElementById("exampleModal").classList.toggle("showModel");
+  }
+
+
+
+</script>
+<!-- <script>
+
+
+ 
+
+
+  var Products;
+
+  function snd(car) {
+    const items = ["PI2","PI5","PI3"];
+
+    /* for (it in car) {
+      console.log(it);
+      items.push(it);
+
+    } */
+
+    fetch('/Test', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "prods": items })
+    }).then(res => res.json())
+      .then(res => { if(res.status=="200"){
+        window.open('http://127.0.0.1:8000/status',"_blank");
+      } });
+  }
+  snd(cart2);
+  
+</script> -->
+
+{% endblock %}

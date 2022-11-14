@@ -1,0 +1,83 @@
+{% extends 'Nav.html' %}
+{% block title %}
+My shop | {{prod.product_Name}}
+{% endblock %}
+{% block css %}
+body{
+background-color:#f3f3f3;
+
+
+}
+.left_image_con{
+background-color:white;
+height:380px;
+width:100%;
+background-position:center;
+background-repeat:no-repeat;
+background-size:contain;
+}
+.mb-3{
+border:none;
+
+}
+.btn{
+border-width:2px;
+}
+.veiw_prod_btn_con{
+border-top:1px solid grey;
+padding:20px;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+{% endblock%}
+{% block body %}
+<div>
+
+    {% if prod %}
+    <!-- <div class="left_image_con" style="background-image:url(/media/{{prod.0.product_image}})"></div>
+    <div class="product_details">
+    </div> -->
+
+
+    <div class="mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <div class="left_image_con" style="background-image:url(/media/{{prod.product_image}})">
+
+                </div>
+                <div>
+                    <div class="veiw_prod_btn_con">
+                        <button class="btn btn-outline-primary" >Buy Now</button>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        <button class=" btn btn-outline-primary addToCart" prid={{prod.id}}><i
+                                class="fa fa-key icon"></i>Add To Cart</button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{prod.product_Name}}</h5>
+                    <p class="card-text">{{prod.product_details}}</p>
+                    <p class="card-text">
+                    <h4>&#8377;
+                        <script>document.write(IntToRupee('{{prod.product_price}}'))</script>.
+                    </h4>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% else %}
+    {{"don't mess with url"}}
+    {% endif %}
+
+<script>AddToCart();</script>
+</div>
+
+{% endblock %}

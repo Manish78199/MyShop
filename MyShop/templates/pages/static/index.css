@@ -1,0 +1,177 @@
+* {
+    font-family: "Questrial", "Roboto";
+}
+
+
+body {
+    margin: 0px;
+}
+
+#mainNav {
+    display: flex;
+
+    background-color: #131921;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.Navbar {
+
+   
+    width: 100%;
+    padding-left: 40px;
+    height: 70px;
+    column-gap: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.Brand_Name {
+    font-size: 25px;
+    color: white;
+    text-decoration: none;
+}
+
+.Nav_btn_con {
+    width: max-content;
+
+    column-gap: 40px;
+    text-decoration: none;
+    color: white;
+    display: flex;
+}
+
+.Nav_btn_con>a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+span#Noitems::before {
+    width: 8px;
+    background-color: #04fd5c;
+    z-index: 100;
+    height: 8px;
+    content: "";
+    margin-top: -6px;
+    margin-left: 1px;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.Search_prod_con {
+    max-height: 36px;
+    overflow: hidden;
+    width: max-content;
+    display: flex;
+    height: max-content;
+    border-radius: 5px;
+
+}
+
+ul#suggestProdCon {
+    padding: 0px;
+    position: absolute;
+    overflow-y: auto;
+    background-color: #ffffff;
+    max-height: 300px;
+    border: 1px solid #b7b7b7;
+    box-shadow: 0px 8px 20px 0px #9d9d9d8c;
+    z-index: 100;
+    list-style: none;
+    border-top: none;
+    width: 500px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+ul#suggestProdCon > li {
+    cursor: pointer;
+    font-size: 18px;
+    color: #000032;
+    padding: 2px 0px;
+    padding-left: 20px;
+    width: 100%;
+}
+ul#suggestProdCon > li:hover{
+ background-color: #ebebeb;
+}
+
+#Sel_Category {
+    cursor: pointer;
+    outline: none;
+    background-color: #cbcbcb;
+    color: #3e3737;
+    padding: 0px 5px;
+    font-size: 16px;
+    width: 70px;
+    border: none;
+}
+
+#Search_Prod {
+    padding-left: 10px;
+    outline: none;
+    border: none;
+    height: 36px;
+    width: 500px;
+}
+
+
+#Search_btn {
+    cursor: pointer;
+    background-image: url(img/search.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #ffba20;
+    background-size: 28px 28px;
+    border: none;
+    width: 50px;
+}
+
+#Search_btn:hover {
+    background-color: #ffae00;
+}
+
+
+.Authurize_con {
+ 
+    float: right;
+    display: flex;
+    column-gap: 20px;
+    align-items: center;
+}
+
+
+.Authurize_con>a {
+    transition: all 0.1s linear;
+    color: white;
+    text-decoration: none;
+}
+
+.Authurize_con>a:hover {
+    border-bottom: 2px solid white;
+}
+
+.Authurize_con>div>a {
+    transition: all 0.1s linear;
+    color: white;
+    text-decoration: none;
+}
+
+.Authurize_con>div>a:hover {
+    border-bottom: 2px solid white;
+}
+
+
+ #successCart {
+      transition: all linear 0.5s;
+      transform: translateY(-200px);
+      position: fixed;
+      left: 75%;
+      float: right;
+      z-index: 1000;
+    }

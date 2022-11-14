@@ -1,0 +1,220 @@
+{% extends 'Nav.html' %}
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+{% endblock %}
+{% block title %} My Shop | Buy Happiness {% endblock %}
+{% block css %}
+.product_item{
+width:100%;
+height:max-content;
+background-color: #ebebeb;
+}
+
+.carousel-inner{
+padding:8px 5px;
+}
+.card{
+background-color:white;
+border:none;
+border-radius:0px;
+}
+.carousel-item.active {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.carousel_item_con{
+max-width: 94%;
+min-width: 18rem;
+column-gap: 10px;
+justify-content: center;
+align-items: center;
+background-color: white;
+}
+
+.prod_image_con {
+cursor:pointer;
+width: 100%;
+
+height: 290px;
+background-size: contain;
+background-position: center;
+background-repeat: no-repeat;
+
+}
+
+.cycle >.carousel-control-next-icon{
+
+height:100px;
+background-color:black;
+box-shadow: 0 0 5px grey;
+}
+.cycle >.carousel-control-prev-icon {
+height: 100px;
+background-color: black;
+border-top-right-radius: 2px;
+border-bottom-right-radius: 2px;
+box-shadow: 5px 1px 4px 1px #7a7a7a;
+}
+
+.cycle{
+
+width:60px;
+display:none;
+}
+.carousel:hover .cycle {
+display: block;
+}
+.prod-btn {
+    cursor:pointer;
+    border-width: 1px;
+    border-color: #212529;
+    color: #212529;
+    background: none;
+    font-size: 18px;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-weight: 400;
+}
+.prod-btn:hover{
+    background-color:#212529;
+    color:white;
+}
+
+
+{% endblock %}
+
+{% block body %}
+
+<script>
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+<div class="product_item">
+
+
+    {% for allprod in para %}
+    <script>
+        setcat('{{allprod.0.0.product_category}}');
+    </script>
+    <div id="carouselExampleDark{{forloop.counter}}" class="carousel carousel-dark slide">
+         <!-- <h4 style="margin-left:30px;background-color:white;color: black;">{{allprod.0.0.product_category}} Recommended For you</h4> -->
+     
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                
+                <div class="carousel_item_con row">
+                    {% for i in allprod.0 %}
+                    <div class="card products" style="width: 18rem;padding:4px;" itemNo={{i.id}}>
+                        <div class="prod_image_con" style="background-image: url(media/{{i.product_image}});"></div>
+                        <div class="card-body" style="text-align:center">
+                            <h5 class="card-title">{{i.product_Name}}</h5>
+                            <h4>&#8377;<script>document.write(IntToRupee('{{i.product_price}}'))</script></h4>
+                            <p class="card-text">{{i.product_details}}</p>
+                            <div>
+                                 <button class="prod-btn btn-outline-primary" prid={{i.id}}>Buy </button>
+                                 &nbsp;
+                                 <button class=" prod-btn btn-outline-primary addToCart" prid={{i.id}}><i class="fa fa-key icon"></i> Cart</button>
+                       
+                            </div>
+                            </div>
+                    </div>
+
+                    {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel_item_con">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+        {% if allprod.2 > 1 %}
+        <button class="carousel-control-prev cycle" type="button"
+            data-bs-target="#carouselExampleDark{{forloop.counter}}" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next cycle" type="button"
+            data-bs-target="#carouselExampleDark{{forloop.counter}}" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+
+       {% endif %}
+
+
+    </div>
+    {% endfor %}
+
+</div>
+<script>AddToCart();</script>
+<!-- <script>
+
+
+
+
+
+
+
+
+
+    function SuccessfullyCart() {
+        document.getElementById("successCart").style.transform = "translateY(20px)";
+        setTimeout(() => {
+            document.getElementById("successCart").style.transform = "translateY(-200px)";
+        }, 1500)
+    }
+
+
+    var cart = {};
+    if (localStorage.getItem("cart") == null) {
+        cart = {};
+
+    }
+    else {
+        cart = JSON.parse(localStorage.getItem("cart"));
+        updateCart(cart)
+
+
+    }
+
+    const allc = document.querySelectorAll(".addToCart");
+    allc.forEach((car) => {
+        car.onclick = function () {
+            if (cart["PI" + this.getAttribute("prid")] != undefined) {
+                cart["PI" + this.getAttribute("prid")] += 1;
+            }
+            else {
+                cart["PI" + this.getAttribute("prid")] = 1;
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCart(cart);
+            SuccessfullyCart();
+        }
+    });
+    
+</script> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+
+
+
+{% endblock %}

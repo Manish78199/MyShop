@@ -1,0 +1,87 @@
+{% extends 'Nav.html' %}
+{% block title %}
+Order Status
+{% endblock %}
+{% load static %}
+{% block head %}
+
+<title>Login / Sign up </title>
+
+
+<link rel="stylesheet" href="{% static 'Login.css' %}">
+</head>
+{% endblock %}
+{% block body %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+<h4 align="center">
+    {% if user.is_authenticated %}
+
+    hey! dear {{user}} you are already sign in. if you want to change user(or login again) , you need to logout
+    {% endif %}
+</h4>
+
+
+<div class="Main_Con">
+
+    <div class="sign_Log_Co">
+
+        <div class="Signup_Shower">
+            <div class="Signup_Con">
+                <h4>Sign up </h3>
+                    <form action="/credential/signup" method="post">
+
+                        {% csrf_token %}
+                        <!--<label for="name">Enter Your Name</label>-->
+                        <div class="input_con"><input type="text" name="username" id="" placeholder="UserName" required>
+                        </div>
+                        <br>
+                        <!--<label for="Email">Enter Email</label>-->
+                        <div class="input_con"><input type="email" name="email2" id="" placeholder="Email" required>
+                        </div>
+                        <br>
+                        <!--<label for="password">Enter New password </label>-->
+                        <div class="input_con"> <input type="password" name="password2" id="password2"
+                                placeholder="Password" required>
+                        </div>
+                        <br>
+                        <!--<label for="cpassword">Confirm  password </label>-->
+                        <div class="input_con"><input type="password" name="cpassword2" id="cpassword2"
+                                placeholder="Confirm Password" required>
+                        </div>
+
+                        <br>
+                        <input type="submit" value="Sign up">
+                    </form>
+                    <fieldset align="center">
+                        <legend style="font-size:18px;float:none;width: max-content;
+    padding: 0px 4px;margin-bottom:0px" class="scheduler-border"> have an account? </legend>
+                        <a href="/signin/" target="_self" >Login Now</a>
+                    </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("cpassword2").onkeyup = function () {
+        if (this.value != document.getElementById("password2").value) {
+
+            document.getElementById("cpassword2").style.outlineColor = "#af0606";
+        }
+        else {
+            document.getElementById("cpassword2").style.outlineColor = "#0066ff";
+        }
+    }
+
+</script>
+
+
+{% endblock %}
+<!-- </body>
+
+</html> -->

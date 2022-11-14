@@ -1,0 +1,83 @@
+{% extends 'Nav.html' %}
+{% block title %} My Shop | {{value}}{% endblock %}
+{% block css %}
+.prod_image_con {
+
+width: 100%;
+
+height: 290px;
+background-size: contain;
+background-position: center;
+background-repeat: no-repeat;
+
+}
+{% endblock %}
+{% block body %}
+
+<div>
+    <div class="row">
+        {% for i in prod %}
+        <div class="card products" style="width: 18rem;padding:4px;cursor:pointer;" itemNo={{i.id}}>
+            <div class="prod_image_con" style="background-image: url(/media/{{i.product_image}});"></div>
+            <div class="card-body" style="text-align:center">
+                <h5 class="card-title">{{i.product_Name}}</h5>
+                <p class="card-text">{{i.product_details}}</p>
+
+                <button class="btn btn-primary addToCart" prid={{i.id}}>Cart</button>
+            </div>
+        </div>
+          {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+          </div><div class="row">
+          {% endif %}     
+        {% endfor %}
+    </div>
+</div>
+<script>AddToCart();</script>
+<!-- <script>
+
+
+
+
+
+
+
+
+
+    function SuccessfullyCart() {
+        document.getElementById("successCart").style.transform = "translateY(50px)";
+        setTimeout(() => {
+            document.getElementById("successCart").style.transform = "translateY(-200px)";
+        }, 1500)
+    }
+
+
+    var cart = {};
+    if (localStorage.getItem("cart") == null) {
+        cart = {};
+
+    }
+    else {
+        cart = JSON.parse(localStorage.getItem("cart"));
+        updateCart(cart)
+
+
+    }
+
+    const allc = document.querySelectorAll(".addToCart");
+    allc.forEach((car) => {
+        car.onclick = function () {
+            if (cart["PI" + this.getAttribute("prid")] != undefined) {
+                cart["PI" + this.getAttribute("prid")] += 1;
+            }
+            else {
+                cart["PI" + this.getAttribute("prid")] = 1;
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCart(cart);
+            SuccessfullyCart();
+        }
+    });
+    console.log(allc);
+</script> -->
+{% endblock %}

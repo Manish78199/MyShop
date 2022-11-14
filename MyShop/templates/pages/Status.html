@@ -1,0 +1,157 @@
+{% extends 'Nav.html' %}
+{% block title %} My Shop | Buy Happiness {% endblock %}
+{% block css %}
+ul{
+list-style:none;
+}
+
+body {
+background-color: #f3f3f3;
+}
+.items_list_con{
+display:flex;
+align-items:center;
+
+}
+
+.Prod_img{
+width: 50px;
+background-position: center;
+background-size: contain;
+background-repeat:no-repeat;
+height: 50px;
+}
+
+
+
+
+.items_list_con {
+padding: 4px 20px;
+border-bottom: 1px solid #dddddd;
+display: flex;
+align-items: center;
+}
+.product_name_con {
+width: 50%;
+}
+.product_quantity_con {
+
+width: 20%;
+}
+.product_price_con {
+width: 30%;
+
+}
+
+
+
+{% endblock %}
+{% block body %}
+
+<div class="container">
+{% for order in orders %}
+
+
+<div>
+  <h4 style="
+             background-color: #9b9b9b;
+             padding: 20px;">your order ID #{{order.order.order_id }} have placed at {{order.order.order_date}}
+             </h4>
+  <div style="
+           box-shadow: 0 0 4px #b7b7b7;
+           border-radius: 4px;
+           background-color: white;
+           overflow: hidden;">
+    <div class="items_list_con" style="background-color: #3b424c;
+    color: white;">
+      <div class="Prod_img"></div>
+      <div class="product_name_con">
+        <h5>Name</h5>
+      </div>
+      <div class="product_quantity_con">
+        <h5>Quantity</h5>
+      </div>
+      <div class="product_price_con">
+        <h5>Price</h5>
+      </div>
+    </div>
+    {% for prods in order.products %}
+    <div class="items_list_con">
+      <div style="background-image: url(/media/{{prods.product.product_image}})" class="Prod_img">
+      </div>
+
+      <div class="product_name_con">{{prods.product.product_Name}}</div>
+      <div class="product_quantity_con">{{prods.quantity}}</div>
+      <div class="product_price_con">&#8377;
+        <script>document.write(IntToRupee(('{{prods.product.product_price}}'*'{{prods.quantity}}')))</script>
+      </div>
+    </div>
+    {% endfor %}
+    <div class="items_list_con">
+      <div class="Prod_img"></div>
+      <div class="product_name_con">
+        <h5><b>Total</b></h5>
+      </div>
+      <div class="product_quantity_con">
+        <h5><b></b></h5>
+      </div>
+      <div class="product_price_con">
+        <h5><b>&#8377;
+            <script>document.write(IntToRupee('{{order.order.order_price }}'))</script>
+          </b></h5>
+      </div>
+    </div>
+  </div>
+<ul class="Status_con" >
+  
+  <div class="current_status_con"> <span><h4>Status</h4></span>  <span><h5>{{order.orderUpdate.0.order_status}}   {{order.orderUpdate.0.update_time}} </h5></span></div>
+  {% for update in order.orderUpdate %}
+  
+    <li>{{update.order_desc}} at {{update.update_time}}</li>
+  
+  
+  {% endfor %}
+  </ul>
+</div>
+{% endfor %}
+
+</div>
+
+<script>
+
+  function reverseString(str) {
+    return str.split("").reverse().join("");
+  }
+
+
+
+  function IntToRupee(pr) {
+
+    if (String(pr).length > 3) {
+      let inr = String(pr);
+      let tre = reverseString(inr).slice(0, 3);
+      console.log(tre)
+      inr = reverseString(inr);
+
+      let res = '';
+      let comma = 2;
+
+      for (var c = 3; c < inr.length; c++) {
+        if (c != comma) {
+          res += "," + inr[c];
+          comma += 2;
+        }
+        else {
+          res += inr[c];
+        }
+
+      }
+      return (reverseString(res) + reverseString(tre));
+    }
+    else {
+      return pr;
+    }
+  }
+  console.log(IntToRupee(251400));
+</script>
+{% endblock %}
