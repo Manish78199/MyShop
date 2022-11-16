@@ -6,6 +6,32 @@ My shop | Cart
 
 {% endblock %}
 {% block css%}
+body{
+background-color: rgb(233, 233, 233);
+}
+
+
+
+
+.cart_info {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    align-items: center;
+    column-gap: 50px;
+    padding: 10px;
+}
+.cart_info > a{
+      padding: 6px 10px;
+    text-decoration: none;
+    background-color: black;
+    font-size: 18px;
+    color: white;
+}
+
+
+
+
 
 .cart_con{
 border-radius: 4px;
@@ -53,12 +79,10 @@ flex-direction: row;
 }
 
 
-body{
-background-color: rgb(233, 233, 233);
-}
-*{
-font-family: "Questrial", "Roboto";;
-}
+
+
+
+
 .cart_item {
 box-shadow: 0 0 7px 0px lightgrey;
 border-radius:5px;
@@ -174,6 +198,7 @@ background-color: rgb(56 43 30 / 68%);
 display: block;
 opacity: 1;
 }
+
 {% endblock %}
 
 {% block body %}
@@ -245,7 +270,9 @@ opacity: 1;
    category.forEach((cat)=>setcat());
 
 
-
+const Clear=()=>{
+  localStorage.clear();window.location.reload();
+}
   // remove node
 
   function removeNode(parent, child) {
@@ -327,8 +354,8 @@ opacity: 1;
 
 
 
-               document.querySelector(".cart_info").innerHTML +="<h2>Your Cart Having "+ allitem+" Items</h2>";
-               document.querySelector(".cart_info").innerHTML +="<a href='' onclick='localStorage.clear();window.location.reload()'>Clear Cart</a>";
+               document.querySelector(".cart_info").innerHTML +="<h1>Your Cart Having "+ allitem+" Items</h1>";
+               document.querySelector(".cart_info").innerHTML +="<a href='' onclick='Clear()'>Clear Cart</a>";
           let tprice = 0;
           for (let It in Items) {
             if (cart['PI' + String(Items[It].id)] > 0) {

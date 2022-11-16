@@ -8,8 +8,10 @@ body {
 }
 
 #mainNav {
+    z-index: 10;
     display: flex;
-
+    position:sticky;
+    top: 0px;
     background-color: #131921;
     width: 100%;
     justify-content: center;

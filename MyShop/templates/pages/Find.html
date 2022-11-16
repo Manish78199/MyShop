@@ -1,6 +1,33 @@
 {% extends 'Nav.html' %}
 {% block title %} My Shop | {{value}}{% endblock %}
 {% block css %}
+
+body{
+background-color: rgb(233, 233, 233);
+}
+
+.main_con{
+    display:flex;
+    column-gap:20px;
+}
+
+
+
+.Filter_box_con{
+    width:250px;
+    background-color:red;
+    height:600px;
+}
+
+.column{
+       display: flex;
+    padding-top: 20px;
+    max-width: 75%;
+    min-width: 70%;
+    row-gap: 10px;
+    flex-direction: column;
+
+}
 .prod_image_con {
 
 width: 100%;
@@ -11,13 +38,50 @@ background-position: center;
 background-repeat: no-repeat;
 
 }
+
+
+.cart_item {
+box-shadow: 0 0 7px 0px lightgrey;
+border-radius:5px;
+padding:10px;
+display: flex;
+min-height: 270px;
+max-height: 500px;
+/* width: 800px;*/
+background-color: rgb(255, 255, 255);
+
+}
+
+
+.img_con {
+ width: 300px;
+height: inherit;
+
+background-position: center;
+background-size: contain;
+background-repeat: no-repeat;
+}
+
+.cart_deatil_con {
+width: 60%;
+height: inherit;
+}
+
+
+
+
 {% endblock %}
 {% block body %}
 
-<div>
-    <div class="row">
+<div class="main_con"> 
+   <div class="Filter_box_con">
+
+   </div>
+
+
+    <div class="column" >
         {% for i in prod %}
-        <div class="card products" style="width: 18rem;padding:4px;cursor:pointer;" itemNo={{i.id}}>
+        <!-- <div class="card products" style="width: 18rem;padding:4px;cursor:pointer;" itemNo={{i.id}}>
             <div class="prod_image_con" style="background-image: url(/media/{{i.product_image}});"></div>
             <div class="card-body" style="text-align:center">
                 <h5 class="card-title">{{i.product_Name}}</h5>
@@ -28,7 +92,30 @@ background-repeat: no-repeat;
         </div>
           {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
           </div><div class="row">
-          {% endif %}     
+          {% endif %}      -->
+
+        <div class="cart_item container" id="PI7">
+            <div class="img_con"
+                style="background-image: url(/media/{{i.product_image}});">
+                </div>
+            <div class="cart_deatil_con">
+                <h3>{{i.product_Name}}</h3>
+                <h5>{{i.product_details}}</h5>
+                <p>
+                    <del style="color: #88898b;">350</del>
+                    &nbsp;
+                    <span>29% <strong>off</strong></span>
+                </p>
+                <h3 style="margin: 0px;">&#8377;{{i.product_price}}</h3>
+
+
+
+            </div>
+        </div>
+
+
+
+
         {% endfor %}
     </div>
 </div>

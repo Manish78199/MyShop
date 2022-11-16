@@ -49,13 +49,17 @@ width: 30%;
 {% block body %}
 
 <div class="container">
+  {% if orders %}
 {% for order in orders %}
 
 
 <div>
   <h4 style="
-             background-color: #9b9b9b;
-             padding: 20px;">your order ID #{{order.order.order_id }} have placed at {{order.order.order_date}}
+    background-color: #040a1a;
+    color: white;
+    margin: 0px;
+    padding: 10px;
+">your order ID #{{order.order.order_id }} have placed at {{order.order.order_date}}
              </h4>
   <div style="
            box-shadow: 0 0 4px #b7b7b7;
@@ -104,7 +108,7 @@ width: 30%;
   </div>
 <ul class="Status_con" >
   
-  <div class="current_status_con"> <span><h4>Status</h4></span>  <span><h5>{{order.orderUpdate.0.order_status}}   {{order.orderUpdate.0.update_time}} </h5></span></div>
+  <div class="current_status_con"> <h4>Status</h4> <b>{{order.orderUpdate.0.order_status}}  </b> <span><h6> {{order.orderUpdate.0.update_time}} </h6></span></div>
   {% for update in order.orderUpdate %}
   
     <li>{{update.order_desc}} at {{update.update_time}}</li>
@@ -114,7 +118,10 @@ width: 30%;
   </ul>
 </div>
 {% endfor %}
-
+{% else %}
+<h2>ohh! Dear, Your Are Not Order Yet </h2>
+<a href="/cart">Go To Cart</a>
+{% endif %}
 </div>
 
 <script>

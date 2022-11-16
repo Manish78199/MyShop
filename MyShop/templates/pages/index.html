@@ -1,6 +1,9 @@
 {% extends 'Nav.html' %}
 {% block head %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
 {% endblock %}
 {% block title %} My Shop | Buy Happiness {% endblock %}
 {% block css %}
@@ -66,24 +69,35 @@ display:none;
 display: block;
 }
 .prod-btn {
-    cursor:pointer;
-    border-width: 1px;
-    border-color: #212529;
-    color: #212529;
-    background: none;
-    font-size: 18px;
-    border-radius: 4px;
-    padding: 6px 10px;
-    font-weight: 400;
+cursor:pointer;
+border-width: 1px;
+border-color: #212529;
+color: #212529;
+background: none;
+font-size: 18px;
+border-radius: 4px;
+padding: 6px 10px;
+font-weight: 400;
 }
 .prod-btn:hover{
-    background-color:#212529;
-    color:white;
+background-color:#212529;
+color:white;
+}
+.card-btn{
+display: flex;
+column-gap: 6px;
+align-items: center;
+justify-content: center;
+}
+.card-btn > button{
+display: flex;
+justify-content: center;
+width: min-content;
+flex-direction: row;
 }
 
-
 {% endblock %}
-
+{% load static %}
 {% block body %}
 
 <script>
@@ -110,27 +124,39 @@ display: block;
         setcat('{{allprod.0.0.product_category}}');
     </script>
     <div id="carouselExampleDark{{forloop.counter}}" class="carousel carousel-dark slide">
-         <!-- <h4 style="margin-left:30px;background-color:white;color: black;">{{allprod.0.0.product_category}} Recommended For you</h4> -->
-     
+        <!-- <h4 style="margin-left:30px;background-color:white;color: black;">{{allprod.0.0.product_category}} Recommended For you</h4> -->
+
         <div class="carousel-inner">
 
             <div class="carousel-item active">
-                
+
                 <div class="carousel_item_con row">
                     {% for i in allprod.0 %}
                     <div class="card products" style="width: 18rem;padding:4px;" itemNo={{i.id}}>
                         <div class="prod_image_con" style="background-image: url(media/{{i.product_image}});"></div>
                         <div class="card-body" style="text-align:center">
                             <h5 class="card-title">{{i.product_Name}}</h5>
-                            <h4>&#8377;<script>document.write(IntToRupee('{{i.product_price}}'))</script></h4>
+                            <h4>&#8377;
+                                <script>document.write(IntToRupee('{{i.product_price}}'))</script>
+                            </h4>
                             <p class="card-text">{{i.product_details}}</p>
-                            <div>
-                                 <button class="prod-btn btn-outline-primary" prid={{i.id}}>Buy </button>
-                                 &nbsp;
-                                 <button class=" prod-btn btn-outline-primary addToCart" prid={{i.id}}><i class="fa fa-key icon"></i> Cart</button>
-                       
+                            <div class="card-btn">
+                                <button class="prod-btn btn-outline-primary" prid={{i.id}}><i
+                                        class="material-icons">shopping_bag</i> Buy </button>
+                               
+                                <button class=" prod-btn btn-outline-primary addToCart" prid={{i.id}}>
+
+
+                                    <!-- <img src="{% static 'img/shopping_cart.svg' %}" alt="" srcset="" width="24"
+                                        height="24"> -->
+                                    <i class="material-icons">shopping_cart</i>
+                                    Cart
+
+
+                                </button>
+
                             </div>
-                            </div>
+                        </div>
                     </div>
 
                     {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
@@ -156,7 +182,7 @@ display: block;
             <span class="visually-hidden">Next</span>
         </button>
 
-       {% endif %}
+        {% endif %}
 
 
     </div>

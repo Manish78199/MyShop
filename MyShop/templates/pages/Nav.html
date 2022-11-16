@@ -25,9 +25,13 @@
     height: 100%;
     position: fixed;
     width: 100%;
-    z-index: 10;
+    z-index: 9;
     background-color: #18131354;
     }
+
+
+
+      
     {% block css %}
 
       {% endblock %}
@@ -105,10 +109,10 @@
           <!-- <a href="/logout/">Logout</a> -->
 
           <div class="dropdown show">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+          <button class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
             data-toggle="dropdown" aria-haspopup="true" onclick="menuToggle()" aria-expanded="false">
             Hii , {{user}}
-          </a>
+          </button>
 
           <div class="dropdown-menu" id="cartmenu" aria-labelledby="dropdownMenuLink">
             
