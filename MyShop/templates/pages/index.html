@@ -141,7 +141,7 @@ flex-direction: row;
                             </h4>
                             <p class="card-text">{{i.product_details}}</p>
                             <div class="card-btn">
-                                <button class="prod-btn btn-outline-primary" prid={{i.id}}><i
+                                <button class="prod-btn btn-outline-primary Buy_Btn" prid={{i.id}}><i
                                         class="material-icons">shopping_bag</i> Buy </button>
                                
                                 <button class=" prod-btn btn-outline-primary addToCart" prid={{i.id}}>
@@ -156,6 +156,7 @@ flex-direction: row;
                                 </button>
 
                             </div>
+
                         </div>
                     </div>
 
@@ -189,54 +190,27 @@ flex-direction: row;
     {% endfor %}
 
 </div>
+<form action="/checkout/" method="post" id="checkOut">
+    <input type="hidden" id="cartItem" name="cartItem">
+    {% csrf_token %}
+</form>
 <script>AddToCart();</script>
-<!-- <script>
 
-
-
-
-
-
-
-
-
-    function SuccessfullyCart() {
-        document.getElementById("successCart").style.transform = "translateY(20px)";
-        setTimeout(() => {
-            document.getElementById("successCart").style.transform = "translateY(-200px)";
-        }, 1500)
+<script>
+var purchase_btn=document.querySelectorAll(".Buy_Btn");
+purchase_btn.forEach((pur)=>{
+    pur.onclick=function(){
+        var prods=this.getAttribute("prid");
+        
+        var cartitems={};
+        cartitems["PI"+prods]=1;
+        console.log(cartitems)
+        document.getElementById("cartItem").value=JSON.stringify(cartitems);
+        document.getElementById("checkOut").submit();
+      
     }
-
-
-    var cart = {};
-    if (localStorage.getItem("cart") == null) {
-        cart = {};
-
-    }
-    else {
-        cart = JSON.parse(localStorage.getItem("cart"));
-        updateCart(cart)
-
-
-    }
-
-    const allc = document.querySelectorAll(".addToCart");
-    allc.forEach((car) => {
-        car.onclick = function () {
-            if (cart["PI" + this.getAttribute("prid")] != undefined) {
-                cart["PI" + this.getAttribute("prid")] += 1;
-            }
-            else {
-                cart["PI" + this.getAttribute("prid")] = 1;
-            }
-
-            localStorage.setItem("cart", JSON.stringify(cart));
-            updateCart(cart);
-            SuccessfullyCart();
-        }
-    });
-    
-</script> -->
+}); 
+</script> 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
     crossorigin="anonymous"></script>

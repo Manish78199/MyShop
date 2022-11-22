@@ -1,4 +1,8 @@
 {% extends 'Nav.html' %}
+{% block head %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+{% endblock %}
 {% block title %} My Shop | {{value}}{% endblock %}
 {% block css %}
 
@@ -7,25 +11,34 @@ background-color: rgb(233, 233, 233);
 }
 
 .main_con{
-    display:flex;
-    column-gap:20px;
+display:flex;
+column-gap:20px;
 }
 
 
 
 .Filter_box_con{
-    width:250px;
-    background-color:red;
-    height:600px;
-}
 
+padding:8px 10px;
+width: 250px;
+top: 70px;
+position: sticky;
+background-color: white;
+height: 600px;
+}
+.filterBy_con{
+
+}
+.filterBy_inner_con{
+padding:0px 4px;
+}
 .column{
-       display: flex;
-    padding-top: 20px;
-    max-width: 75%;
-    min-width: 70%;
-    row-gap: 10px;
-    flex-direction: column;
+display: flex;
+padding-top: 20px;
+max-width: 75%;
+min-width: 70%;
+row-gap: 10px;
+flex-direction: column;
 
 }
 .prod_image_con {
@@ -54,7 +67,7 @@ background-color: rgb(255, 255, 255);
 
 
 .img_con {
- width: 300px;
+width: 300px;
 height: inherit;
 
 background-position: center;
@@ -67,19 +80,118 @@ width: 60%;
 height: inherit;
 }
 
+.Nav_helper{
+padding-left:250px;
+display:flex;
+justify-content:start;
+align-items:center;
+height:35px;
+width:100%;
+background-color:white
+}
+.Nav_helper >button{
+height:25px;
+border:none;
+background:none;
+color:black;
+font-weight:bold;
+}
 
+
+.prod-btn {
+cursor:pointer;
+border-width: 1px;
+border-color: #212529;
+color: #212529;
+background: none;
+font-size: 18px;
+border-radius: 4px;
+padding: 6px 10px;
+font-weight: 400;
+}
+.prod-btn:hover{
+background-color:#212529;
+color:white;
+}
+.card-btn{
+display: flex;
+column-gap: 6px;
+align-items: center;
+
+}
+.card-btn > button{
+display: flex;
+justify-content: center;
+
+flex-direction: row;
+}
 
 
 {% endblock %}
 {% block body %}
+<div class="Nav_helper">
 
-<div class="main_con"> 
-   <div class="Filter_box_con">
+    <button value="LOWToHIGH">Low to High</button>
+    <button value="HiGHTOLOW"> High to Low </button>
+    <button value="HiGHTOLOW"> New Product </button>
+    <button value="HiGHTOLOW"> Review</button>
 
-   </div>
 
+</div>
+<div class="main_con">
 
-    <div class="column" >
+    <div class="Filter_box_con">
+        <h5> <bdo>Filter By</bdo> </h5>
+
+        <div class="filterBy_con">
+            <label for="disabledRange" class="form-label">Price</label>
+            <div class="filterBy_inner_con">
+                <input type="range" class="form-range" id="disabledRange" style="width: 60%;">
+
+            </div>
+            <label for="Brand" class="form-label">Brand</label>
+            <div class="filterBy_inner_con">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Redmi
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Apple
+                    </label>
+                </div>
+            </div>
+            <label for="Brand" class="form-label">Review</label>
+            <div class="filterBy_inner_con">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        5 Star
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        4 Star
+                    </label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+  
+    
+    <div id="Search_box_text" hidden>    {{value}}</div>
+    <script>
+           document.getElementById("Search_Prod").value= document.getElementById("Search_box_text").innerHTML.trim();
+         
+    </script>
+
+    <div class="column">
+
         {% for i in prod %}
         <!-- <div class="card products" style="width: 18rem;padding:4px;cursor:pointer;" itemNo={{i.id}}>
             <div class="prod_image_con" style="background-image: url(/media/{{i.product_image}});"></div>
@@ -95,20 +207,31 @@ height: inherit;
           {% endif %}      -->
 
         <div class="cart_item container" id="PI7">
-            <div class="img_con"
-                style="background-image: url(/media/{{i.product_image}});">
-                </div>
+            <div class="img_con" style="background-image: url(/media/{{i.product_image}});">
+            </div>
             <div class="cart_deatil_con">
                 <h3>{{i.product_Name}}</h3>
                 <h5>{{i.product_details}}</h5>
                 <p>
-                    <del style="color: #88898b;">350</del>
+                    <del style="color: #88898b;">&#8377;350</del>
                     &nbsp;
                     <span>29% <strong>off</strong></span>
                 </p>
-                <h3 style="margin: 0px;">&#8377;{{i.product_price}}</h3>
+                <h3 style="margin: 0px;">&#8377;
+                    <script>document.write(IntToRupee("{{i.product_price}}"))</script>
+                </h3>
 
+                <div class="card-btn">
+                    <button class="prod-btn btn-outline-primary Buy_Btn" prid={{i.id}}><i
+                            class="material-icons">shopping_bag</i> Buy Now </button>
 
+                    <button class=" prod-btn btn-outline-primary addToCart" prid={{i.id}}>
+                        <i class="material-icons">shopping_cart</i>
+                        Add To
+                        Cart
+                      </button>
+
+                </div>
 
             </div>
         </div>
@@ -117,9 +240,33 @@ height: inherit;
 
 
         {% endfor %}
+
+
+
     </div>
 </div>
+<form action="/checkout/" method="post" id="checkOut">
+    <input type="hidden" id="cartItem" name="cartItem">
+    {% csrf_token %}
+</form>
+
+
 <script>AddToCart();</script>
+<script>
+    var purchase_btn = document.querySelectorAll(".Buy_Btn");
+    purchase_btn.forEach((pur) => {
+        pur.onclick = function () {
+            var prods = this.getAttribute("prid");
+
+            var cartitems = {};
+            cartitems["PI" + prods] = 1;
+            console.log(cartitems)
+            document.getElementById("cartItem").value = JSON.stringify(cartitems);
+            document.getElementById("checkOut").submit();
+
+        }
+    }); 
+</script>
 <!-- <script>
 
 
@@ -167,4 +314,6 @@ height: inherit;
     });
     console.log(allc);
 </script> -->
+
+
 {% endblock %}

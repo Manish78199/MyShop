@@ -1,5 +1,5 @@
 {% extends 'Nav.html' %}
-{% block title %} My Shop | Buy Happiness {% endblock %}
+{% block title %} My Shop | Order Status {% endblock %}
 {% block css %}
 ul{
 list-style:none;
@@ -47,26 +47,25 @@ width: 30%;
 
 {% endblock %}
 {% block body %}
-
+<h1 align="center">Dear {{user}}! , Your Recent Orders</h1>
 <div class="container">
   {% if orders %}
 {% for order in orders %}
 
 
-<div>
+<div style=" box-shadow: 0 0 4px #b7b7b7;background-color: white;">
   <h4 style="
-    background-color: #040a1a;
+    background-color: #00409b;
     color: white;
     margin: 0px;
     padding: 10px;
-">your order ID #{{order.order.order_id }} have placed at {{order.order.order_date}}
+    ">your order ID #{{order.order.order_id }} have placed at {{order.order.order_date}}
              </h4>
   <div style="
-           box-shadow: 0 0 4px #b7b7b7;
-           border-radius: 4px;
+          
            background-color: white;
            overflow: hidden;">
-    <div class="items_list_con" style="background-color: #3b424c;
+    <div class="items_list_con" style="background-color: #2a82ff;
     color: white;">
       <div class="Prod_img"></div>
       <div class="product_name_con">
@@ -79,12 +78,19 @@ width: 30%;
         <h5>Price</h5>
       </div>
     </div>
+    <script>
+      var tqual=0;
+      function Tquantity(val){
+             tqual+=parseInt(val);
+      }
+    </script>
     {% for prods in order.products %}
     <div class="items_list_con">
       <div style="background-image: url(/media/{{prods.product.product_image}})" class="Prod_img">
       </div>
 
       <div class="product_name_con">{{prods.product.product_Name}}</div>
+      <script>Tquantity('{{prods.quantity}}');</script>
       <div class="product_quantity_con">{{prods.quantity}}</div>
       <div class="product_price_con">&#8377;
         <script>document.write(IntToRupee(('{{prods.product.product_price}}'*'{{prods.quantity}}')))</script>
@@ -97,7 +103,7 @@ width: 30%;
         <h5><b>Total</b></h5>
       </div>
       <div class="product_quantity_con">
-        <h5><b></b></h5>
+        <h5><b><script>document.write(tqual)</script></b></h5>
       </div>
       <div class="product_price_con">
         <h5><b>&#8377;

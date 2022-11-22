@@ -173,6 +173,7 @@ ul#suggestProdCon > li:hover{
       transition: all linear 0.5s;
       transform: translateY(-200px);
       position: fixed;
+      top: 0px;
       left: 75%;
       float: right;
       z-index: 1000;

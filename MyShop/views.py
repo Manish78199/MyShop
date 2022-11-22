@@ -120,12 +120,22 @@ def OrderNow(request):
       
 @login_required(login_url='/signin/') 
 def checkout(request):
-     return render(request,"pages/Checkout.html")
- 
+     if request.method=="POST":
+          prod=json.loads(request.POST["cartItem"])
+          print(request.POST["cartItem"])
+          if len(prod)>0 and prod is not None:
+            allprod=[]
+            for x in prod:
+                 allprod.append({"product":(product.objects.filter(id=x[2:]).values("id","product_Name","product_price"))[0],"quantity":prod[x]})
+            return render(request,"pages/Checkout.html",{"prod": allprod,"items":request.POST["cartItem"]})
+     return redirect(cart)
+
+
+
 def contact(request):
      return render(request,"pages/Contact.html")
  
-def veiw(request,pid):
+def view(request,pid):
      
    
      prod=product.objects.filter(id=str(pid)[4:-4]).values()
@@ -248,7 +258,7 @@ def cart(request):
 
 @api_view(["POST","GET"])     
 def search(request,findi):
-     print(findi)
+    
      if findi:
        
        allresult=product.objects.filter(product_Name__contains=findi).values_list("product_Name")
@@ -259,3 +269,7 @@ def search(request,findi):
             result.append(x[0])   
          return Response({"status":"200","result":result})     
      return Response({"status":"400"})
+
+
+def check():
+     return "manish"

@@ -125,10 +125,11 @@ box-shadow: 0px 0px 5px grey;
 #cart_bill_con > div{
 display: flex;
 width: max-content;
+border-bottom:1px solid grey;
 }
 
 #cart_bill_con > div >p {
-font-weight: bold;
+
 margin: 5px;
 width: 250px;
 }
@@ -199,6 +200,10 @@ display: block;
 opacity: 1;
 }
 
+.cart_info > a:hover {
+    background-color: #1c2354;
+    
+}
 {% endblock %}
 
 {% block body %}
@@ -258,14 +263,25 @@ opacity: 1;
       <div id="cart_bill_con">
 
       </div>
-
-      <button type="button" class="btn btn-primary" onclick="window.open('/checkout','_self')">Place Order , Now</button>
-    </div>
+      <form action="/checkout/" method="post" id="checkOut">
+         {% csrf_token %}
+          <input type="hidden"  id="cartItems" name="cartItem">
+         <button type="button" class="btn btn-primary" onclick="placeOrder()">Place Order , Now</button>
+ 
+      </form>
+        </div>
 
   </div>
 </div>
 
 <script>
+  function placeOrder(){
+    
+    var cart2=localStorage.getItem("cart");
+    console.log(cart2)
+     document.getElementById("cartItems").value=cart2;
+     document.getElementById("checkOut").submit();
+  } 
   console.log(category)
    category.forEach((cat)=>setcat());
 
@@ -365,7 +381,7 @@ const Clear=()=>{
               let pr = '<div class="cart_item" id="PI' + Items[It].id + '"> <div class="img_con" style="background-image:url(' + Items[It].product_image + ')"></div><div class="cart_deatil_con">  <h3>' + Items[It].product_Name + '</h3>  <h5>'+Items[It].product_details+'</h5><P> &#8377; <del style="color: #88898b;">350</del> &nbsp; <span>29% <strong>off</strong></span></P> <h3 style="margin: 0px;">&#8377;' + IntToRupee(Items[It].product_price) + '</h3> <br> <div class="cart_update_btn" title="Product Quantity"> <button  onclick="v.updateCartItem(' + (String(Items[It].id)) + ',' + '-1)">-</button><span style="font-size: 20px;">' + cart["PI" + String(Items[It].id)] + '</span><button    onclick="v.updateCartItem(' + (String(Items[It].id)) + ',' + '+1)">+</button></div><br><button class="remove_item btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal" onclick="RemoveItem(' + Items[It].id + ')" data-content="' + Items[It].id + '">Remove Item</button></div></div > ';
 
 
-              let carquan = '<div><p>' + (String(Items[It].product_Name).length > 30 ? String(Items[It].product_Name).slice(0, 30) + "..." : Items[It].product_Name) + '</p><b style="float:right">' + cart["PI" + String(Items[It].id)] + ' &times; ' + Items[It].product_price + ' = ' + ' &#8377; ' + cart["PI" + String(Items[It].id)] * Items[It].product_price + '</b></div>';
+              let carquan = '<div><p>' + (String(Items[It].product_Name).length > 30 ? String(Items[It].product_Name).slice(0, 30) + "..." : Items[It].product_Name) + '</p><b style="float:right;font-weight:100">' + cart["PI" + String(Items[It].id)] + ' &times; ' + Items[It].product_price + ' = ' + ' &#8377; ' + cart["PI" + String(Items[It].id)] * Items[It].product_price + '</b></div>';
 
 
               document.getElementById("fill_cart").innerHTML += pr;
@@ -376,7 +392,7 @@ const Clear=()=>{
 
           }
 
-          document.getElementById("cart_bill_con").innerHTML += '<div><p >Total Price (INR)</p><b style="float:right">&#8377; '+IntToRupee(String(tprice))+' only</b></div>';
+          document.getElementById("cart_bill_con").innerHTML += '<div style="font-weight:bold"><p >Total Price (INR)</p><b style="float:right">&#8377; '+IntToRupee(String(tprice))+' only</b></div>';
 
         }
         else {
