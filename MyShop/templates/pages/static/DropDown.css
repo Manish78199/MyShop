@@ -1,0 +1,83 @@
+      .DropDown {
+
+          width: 180px;
+      }
+
+      .toggle_btn {
+        
+          padding-right: 10px;
+          padding-left: 10px;
+          text-align: start;
+          border: 2px solid #001d48;
+          width: inherit;
+          background-color: white;
+          cursor: pointer;
+          border-radius: 4px;
+      }
+
+      .DropDown_con {
+          margin-top: 4px;
+          background-color: white;
+          display: flex;
+          flex-direction: column;
+          width: inherit;
+          border-radius: 2px;
+          box-shadow: 0px 0px 6px #525252;
+      }
+
+
+      .DropDown_con>a {
+          padding: 0px 6px;
+          color: black;
+          text-decoration: none;
+          border-bottom: 1px solid #e5e5e5;
+      }
+
+      .DropDown_con>a:hover {
+          background-color: #0a87f5;
+          color: white;
+      }
+
+      .Drop_container {
+          z-index: 10;
+          width: 180px;
+          display: none;
+          position: absolute;
+      }
+
+      .show_drop {
+          display: block !important;
+      }
+
+      .Active_toggle {
+          border: 2px solid #0040f3;
+          box-shadow: 0 0 2px #225cff;
+      }
+
+      .toggle_btn::after {
+          transform: rotateZ(45deg);
+          content: " ";
+          width: 10px;
+          border-top: 4px solid;
+          border-left: 4px solid;
+          border-color: #444444;
+          height: 10px;
+          margin-top: 7px;
+          float: right;
+          border-bottom-left-radius: 2px;
+          border-top-right-radius: 2px;
+      }
+
+      .Active_toggle::after {
+          transform: rotateZ(225deg);
+          content: " ";
+          width: 10px;
+          border-top: 4px solid;
+          border-left: 4px solid;
+          border-color: #444444;
+          height: 10px;
+          margin-top: 6px;
+          float: right;
+          border-bottom-left-radius: 2px;
+          border-top-right-radius: 2px;
+      }

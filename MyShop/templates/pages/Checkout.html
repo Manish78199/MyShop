@@ -1,4 +1,5 @@
 {% extends 'Nav.html' %}
+
 {% block title %} My Shop | Checkout {% endblock %}
 {% block css %}
 .container {
@@ -34,7 +35,7 @@ margin-bottom:20px;
                              function calculate(val,quant){
                                   
                                    total+=parseInt(val)*parseInt(quant) ;  
-                                   console.log(total, val);                                              
+                                                                             
                             }
                            </script>
                 {% for pro in prod %}
@@ -56,7 +57,7 @@ margin-bottom:20px;
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                         <h6 class="my-0"><b>Total</b></h6><small class="text-muted"></small>
-                    </div><span class="text-muted"><b>&#8377;
+                    </div><span ><b>&#8377;
                         
                            <script>  
                             document.write(IntToRupee(total))
@@ -67,12 +68,7 @@ margin-bottom:20px;
                     
                 </li>
                 {% endif %}
-                     <!-- <wrap>
-                    ' + (String(Items[It].product_Name).length > 20 ?
-                            String(Items[It].product_Name).slice(0, 15) + "..." : Items[It].product_Name) + ' (' +
-                            cart["PI" + String(Items[It].id)] + '
-                 </wrap> -->
-
+                   
                 <!-- <li class="list-group-item d-flex justify-content-between bg-light">
               <div class="text-success">
                 <h6 class="my-0">Promo code</h6>
@@ -106,7 +102,7 @@ margin-bottom:20px;
                         </script>
  
                 <div class="mb-3">
-                    <label for="Name">Full Name<sub style="font-size: 20px;">*</sub> </label>
+                    <label for="Name">Full Name <sub style="font-size: 20px;">*</sub> </label>
                     <input type="text" class="form-control" id="email" placeholder="Manish" name="username" required>
                     <div class="invalid-feedback">
                         Please enter a valid Name for shipping updates.
@@ -114,7 +110,7 @@ margin-bottom:20px;
                 </div>
 
                 <div class="mb-3">
-                    <label for="number">Contact Number<span class="text-muted">*</span></label>
+                    <label for="number">Contact Number <sub style="font-size: 20px;">*</sub></label>
                     <input type="number" class="form-control" id="number" name="number" placeholder="985xxxxx56"
                         maxlength="10" required>
                     <div class="invalid-feedback">
@@ -132,7 +128,7 @@ margin-bottom:20px;
                 <input type="hidden" name="Email" id="Email" value='{{user.email}}'>
 
                 <div class="mb-3">
-                    <label for="address">Address</label>
+                    <label for="address">Address <sub style="font-size: 20px;">*</sub></label>
                     <input type="text" class="form-control" id="address" name="address" placeholder="1234 Main St"
                         required>
                     <div class="invalid-feedback">
@@ -141,7 +137,7 @@ margin-bottom:20px;
                 </div>
 
                 <div class="mb-3">
-                    <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
+                    <label for="address2">Address 2 <span class="text-muted"></span></label>
                     <input type="text" class="form-control" id="address2" name="address2"
                         placeholder="Apartment or suite">
                 </div>
@@ -306,4 +302,5 @@ margin-bottom:20px;
     })
 
 </script>
+
 {% endblock %}

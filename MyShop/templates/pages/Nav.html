@@ -86,7 +86,7 @@
             </ul>
           </div>
 
-          <button id="Search_btn" type="submit" title="Search" onclick="SearchProducts()"></button>
+          <button id="Search_btn" type="button" title="Search" onclick="SearchProducts()"></button>
         </div>
 
       </div>
@@ -200,13 +200,14 @@
         document.getElementById("Search_Prod").blur();
       
       }
+     
      document.getElementById("SearchingAppearance_con").style.display="block";
     }
   
     document.getElementById("Search_Prod").onblur=function(e){
-      console.log(e)
+    
        document.getElementById("SearchingAppearance_con").style.display="none";
-      /*removeSuggest();*/
+      removeSuggest();
      
     }
    
@@ -262,14 +263,14 @@
         document.getElementById("suggestProdCon").appendChild(l);
 
       }
-      console.log(document.querySelectorAll("#suggestProdCon >li"));
+     
       document.querySelectorAll("#suggestProdCon >li").forEach((lis) => {
-        console.log(lis)
-        lis.onclick = function () {
-          console.log(this.innerHTML);
+       
+        lis.onmousedown= function () {
+         
           document.getElementById("Search_Prod").value = this.innerHTML;
           removeSuggest();
-          
+          document.querySelector("#Search_btn").click();
 
         }
 

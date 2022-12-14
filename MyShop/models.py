@@ -1,7 +1,4 @@
-
-from pyexpat import model
 from django.db import models
-from traitlets import default
 
 # # Create your models here.
 class product(models.Model):

@@ -1,3 +1,9 @@
+"""
+Developed By Manish
+"""
+
+
+
 from ast import Try
 from datetime import date
 import email
@@ -156,22 +162,21 @@ def find1(request,cat='',pname=''):
           
 def find2(request,cat):
      
-     
-     
-     prod=product.objects.filter(product_category=cat,product_Name__contains="").values()
+     prod=[]
+     if cat.lower()=="all":
+            prod =product.objects.all()
+     else:       
+      prod=product.objects.filter(product_category=cat,product_Name__contains="").values()
      
      para={"cat":cat,"prod":prod,"value":""}
      return render(request,"pages/Find.html",para)
 
 def find3(request,cat,pname):
      
+       prod=product.objects.filter(product_Name__contains=pname ).values()
+       para={"cat":cat,"prod":prod,"value":pname}
+       return render(request,"pages/Find.html",para)
      
-     prod=product.objects.filter(product_Name__contains=pname ).values()
-    
-     para={"cat":cat,"prod":prod,"value":pname}
-     return render(request,"pages/Find.html",para)
-
-
 
 
 class ser(serializers.ModelSerializer):

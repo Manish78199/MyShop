@@ -1,9 +1,11 @@
 {% extends 'Nav.html' %}
+{% load static %}
 {% block head %}
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
+<link rel="stylesheet" href="{% static 'DropDown.css' %}">
 {% endblock %}
 {% block title %} My Shop | {{value}}{% endblock %}
+
 {% block css %}
 
 body{
@@ -81,21 +83,15 @@ height: inherit;
 }
 
 .Nav_helper{
-padding-left:250px;
+padding-right:20px;
 display:flex;
-justify-content:start;
+justify-content:end;
 align-items:center;
-height:35px;
+height: 50px;
 width:100%;
 background-color:white
 }
-.Nav_helper >button{
-height:25px;
-border:none;
-background:none;
-color:black;
-font-weight:bold;
-}
+
 
 
 .prod-btn {
@@ -131,11 +127,20 @@ flex-direction: row;
 {% block body %}
 <div class="Nav_helper">
 
-    <button value="LOWToHIGH">Low to High</button>
-    <button value="HiGHTOLOW"> High to Low </button>
-    <button value="HiGHTOLOW"> New Product </button>
-    <button value="HiGHTOLOW"> Review</button>
+    <div class="DropDown">
 
+        <button class="toggle_btn" data-toggle="#Drop_container1">Sort By:&nbsp;&nbsp;<span id="drop_text">-- Default --</span> </button>
+        <div id="Drop_container1" class="Drop_container">
+            <div class="DropDown_con" id="DropDown_con">
+                <a href="#" target="_self" class="DropDown_values">-- Default --</a>
+                <a href="#" target="_self" class="DropDown_values">New </a>
+                <a href="#" target="_self" class="DropDown_values">High To Low Price </a>
+                <a href="#" target="_self" class="DropDown_values">Low To High Price </a>
+                <a href="#" target="_self" class="DropDown_values">Review</a>
+            </div>
+        </div>
+
+    </div>
 
 </div>
 <div class="main_con">
@@ -184,7 +189,7 @@ flex-direction: row;
     </div>
   
     
-    <div id="Search_box_text" hidden>    {{value}}</div>
+    <div id="Search_box_text" hidden>{{value}}</div>
     <script>
            document.getElementById("Search_Prod").value= document.getElementById("Search_box_text").innerHTML.trim();
          
@@ -267,53 +272,13 @@ flex-direction: row;
         }
     }); 
 </script>
-<!-- <script>
+<script src="{% static 'DropDown.js' %}"></script>
 
 
 
 
 
 
-
-
-
-    function SuccessfullyCart() {
-        document.getElementById("successCart").style.transform = "translateY(50px)";
-        setTimeout(() => {
-            document.getElementById("successCart").style.transform = "translateY(-200px)";
-        }, 1500)
-    }
-
-
-    var cart = {};
-    if (localStorage.getItem("cart") == null) {
-        cart = {};
-
-    }
-    else {
-        cart = JSON.parse(localStorage.getItem("cart"));
-        updateCart(cart)
-
-
-    }
-
-    const allc = document.querySelectorAll(".addToCart");
-    allc.forEach((car) => {
-        car.onclick = function () {
-            if (cart["PI" + this.getAttribute("prid")] != undefined) {
-                cart["PI" + this.getAttribute("prid")] += 1;
-            }
-            else {
-                cart["PI" + this.getAttribute("prid")] = 1;
-            }
-
-            localStorage.setItem("cart", JSON.stringify(cart));
-            updateCart(cart);
-            SuccessfullyCart();
-        }
-    });
-    console.log(allc);
-</script> -->
 
 
 {% endblock %}
